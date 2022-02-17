@@ -5,6 +5,7 @@ function [tof,dV] = ...
 %       launcher.type - string for the name, e.g. "NASA SLS"
 %       launcher.masses - array of possible payload mass [kg]
 %       launcher.C3 - array of excess C3 for each payload mass [km^2/s^2]
+%
 %   m_total - estimated total spacecraft mass [kg]
 %
 %   orbit - struct containing final spacecraft orbit

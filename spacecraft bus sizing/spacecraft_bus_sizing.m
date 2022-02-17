@@ -1,3 +1,0 @@
-function spacecraft_bus_sizing
-
-end
