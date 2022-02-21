@@ -65,9 +65,12 @@ function m_prop = calculatePropMass(propSys)
             rho = 1380; % kg/m3, LS2 density (mylar)
             m_prop = A*z*rho; % kg, only includes sail not supporting structure
         case 'ion'
-            % https://www.sciencedirect.com/topics/engineering/ion-engines
-            % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
-            m_prop = 8.3; % kg, NSTAR ion engine (Dawn probe)
+            % NSTAR ion engine
+%             % https://www.sciencedirect.com/topics/engineering/ion-engines
+%             % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
+%             m_prop = 8.3; % kg, NSTAR ion engine (Dawn probe)
+            % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
+            m_prop = 58.2; % kg, NEXT ion engine
         case 'nuclear'
             % https://www.osti.gov/includes/opennet/includes/Understanding%20the%20Atom/SNAP%20Nuclear%20Space%20Reactors.pdf
             m_prop = 854; % kg, SNAP10A
@@ -90,9 +93,12 @@ function Isp = calculatePropIsp(propSys)
             % https://www.planetary.org/articles/what-is-solar-sailing
             Isp = 'inf';
         case 'ion'
-            % Dawn Spacecraft Ion Engine
-            % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
-            Isp = 3100;
+%             % Dawn Spacecraft Ion Engine
+%             % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
+%             Isp = 3100;
+            % NEXT Ion Engine
+            % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
+            Isp = 4190; % seconds
         case 'nuclear'
             % https://www.osti.gov/includes/opennet/includes/Understanding%20the%20Atom/SNAP%20Nuclear%20Space%20Reactors.pdf
             Isp = 850;
