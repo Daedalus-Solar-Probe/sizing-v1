@@ -131,8 +131,9 @@ end
 function power = calculatePropPower(propSys)
     switch propSys.type
         case 'chemical'
-            % Pumps require power but more research necessary
-            power = 0;
+            % Power required for the valves
+            % https://www.rocket.com/sites/default/files/documents/In-Space%20Data%20Sheets_7.19.21.pdf
+            power = 45; % Watts
         case 'solarsail'
             power = 0;
         case 'ion'
