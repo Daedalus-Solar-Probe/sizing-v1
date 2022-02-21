@@ -137,7 +137,7 @@ function power = calculatePropPower(propSys)
             power = 0;
         case 'ion'
             % https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.465.718&rep=rep1&type=pdf
-            power = 2567; % Watts
+            power = 7220; % Watts
         case 'nuclear'
             % No clue where to find this
             power = 0;
