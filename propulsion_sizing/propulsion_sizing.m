@@ -67,7 +67,9 @@ function m_prop = calculatePropMass(propSys)
         case 'ion'
             % https://www.sciencedirect.com/topics/engineering/ion-engines
             % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
-            m_prop = 8.3; % kg, NSTAR ion engine (Dawn probe)
+            % m_prop = 8.3; % kg, NSTAR ion engine (Dawn probe)
+            % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
+            m_prop = 58.2; % kg, NEXT ion engine
         case 'nuclear'
             % https://www.osti.gov/includes/opennet/includes/Understanding%20the%20Atom/SNAP%20Nuclear%20Space%20Reactors.pdf
             m_prop = 854; % kg, SNAP10A
@@ -92,7 +94,9 @@ function Isp = calculatePropIsp(propSys)
         case 'ion'
             % Dawn Spacecraft Ion Engine
             % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
-            Isp = 3100;
+            % Isp = 3100;
+            % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
+            Isp = 4190;
         case 'nuclear'
             % https://www.osti.gov/includes/opennet/includes/Understanding%20the%20Atom/SNAP%20Nuclear%20Space%20Reactors.pdf
             Isp = 850;
@@ -143,7 +147,9 @@ function power = calculatePropPower(propSys)
             power = 0;
         case 'ion'
             % https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.465.718&rep=rep1&type=pdf
-            power = 2567; % Watts
+            % power = 2567; % Watts
+            % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
+            power = 7220; % Watts
         case 'nuclear'
             % No clue where to find this
             power = 0;
