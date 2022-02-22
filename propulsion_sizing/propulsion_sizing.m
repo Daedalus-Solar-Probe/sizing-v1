@@ -65,12 +65,9 @@ function m_prop = calculatePropMass(propSys)
             rho = 1380; % kg/m3, LS2 density (mylar)
             m_prop = A*z*rho; % kg, only includes sail not supporting structure
         case 'ion'
-            % NSTAR ion engine
-%             % https://www.sciencedirect.com/topics/engineering/ion-engines
-%             % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
-%             m_prop = 8.3; % kg, NSTAR ion engine (Dawn probe)
-            % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
-            m_prop = 58.2; % kg, NEXT ion engine
+            % https://www.sciencedirect.com/topics/engineering/ion-engines
+            % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
+            m_prop = 8.3; % kg, NSTAR ion engine (Dawn probe)
         case 'nuclear'
             % https://www.osti.gov/includes/opennet/includes/Understanding%20the%20Atom/SNAP%20Nuclear%20Space%20Reactors.pdf
             m_prop = 854; % kg, SNAP10A
@@ -93,12 +90,9 @@ function Isp = calculatePropIsp(propSys)
             % https://www.planetary.org/articles/what-is-solar-sailing
             Isp = 'inf';
         case 'ion'
-%             % Dawn Spacecraft Ion Engine
-%             % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
-%             Isp = 3100;
-            % NEXT Ion Engine
-            % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
-            Isp = 4190; % seconds
+            % Dawn Spacecraft Ion Engine
+            % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
+            Isp = 3100;
         case 'nuclear'
             % https://www.osti.gov/includes/opennet/includes/Understanding%20the%20Atom/SNAP%20Nuclear%20Space%20Reactors.pdf
             Isp = 850;
@@ -110,16 +104,28 @@ end
 
 % Link propulsion system type to its cost
 % All values taken from Morphological Matrix
-function cost = calculatePropCost(propSys)
+function cost = calculatePropCost(propSys, mfuel_total)
     switch propSys.type
         case 'chemical'
+            % Hypergolic fuel cost, $/kg
+            % https://www.dla.mil/Energy/Business/Standard-Prices/
+            cost_fuel = 150; % MMH
+            cost_ox = 150; % Nitrogen Tetroxide
             cost = 99092700;
+            r = 0.8; % Mixture ratio, Leros 1b
+            m_ox = mfuel_total / (1+r);
+            m_fuel = mfuel_total - m_ox;
+            cost = cost + m_ox*cost_ox;
         case 'solarsail'
             cost = 19944225;
         case 'ion'
             cost = 15000000;
+            cost_xenon = 850; % $/kg
+            cost = cost + mfuel_total*cost_xenon;
         case 'nuclear'
             cost = 150645600;
+            cost_H2 = 3; % Liq Hydrogen, $/kg
+            cost = cost + mfuel_total*cost_H2
         otherwise
             fprintf("No such propulsion type");
     end
@@ -131,14 +137,13 @@ end
 function power = calculatePropPower(propSys)
     switch propSys.type
         case 'chemical'
-            % Power required for the valves
-            % https://www.rocket.com/sites/default/files/documents/In-Space%20Data%20Sheets_7.19.21.pdf
-            power = 45; % Watts
+            % Pumps require power but more research necessary
+            power = 0;
         case 'solarsail'
             power = 0;
         case 'ion'
             % https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.465.718&rep=rep1&type=pdf
-            power = 7220; % Watts
+            power = 2567; % Watts
         case 'nuclear'
             % No clue where to find this
             power = 0;
