@@ -13,11 +13,12 @@ addpath trajectory_analysis\
 %% Inputs
 
 % launch vehicle
-launcher.type = "Falcon Heavy Expendable";
+launcher.type = "Falcon Heavy Expendable"; 
+    %Options are: "New Glenn", "NASA SLS", "Falcon Heavy Recovery", "Falcon Heavy Expendable", "Vulcan Centaur"
 
 % payload (all)
 payload = ones(1,9);
-
+    
 % propulsion
 propulsion.type = "Solar Sail";
 % propulsion.type = "Ion";
