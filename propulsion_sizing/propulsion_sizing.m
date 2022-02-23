@@ -37,7 +37,7 @@ m_prop = propulsion.inert + m_fuel;
 % Isp is assumed using reference engine designs
 function m_fuel = calculateFuelMass(propSys, dV, mpay)
     % If solar sail, no fuel mass
-    if propSys.type == "solarsail"
+    if propSys.type == "Solar Sail"
         m_fuel = 0;
         return
     end
@@ -53,28 +53,28 @@ end
 % Other systems use reference designs
 function m_prop = calculatePropMass(propSys)
     switch propSys.type
-        case 'chemical'
+        case 'Chemical'
             % Juno main engine, LEROS 1b
             % https://en.wikipedia.org/wiki/LEROS
             % https://www.nammo.com/product/nammo-space-leros-1b-apogee-engine/
             m_prop = 4.5; % kg
-        case 'solarsail'
+        case 'Solar Sail'
             % https://www.planetary.org/articles/what-is-solar-sailing
             A = 32; % m^2, LightSail 2 area
             z = 4.5E-6; % m^2, LS2 thickness
             rho = 1380; % kg/m3, LS2 density (mylar)
             m_prop = A*z*rho; % kg, only includes sail not supporting structure
-        case 'ion'
+        case 'Ion'
             % https://www.sciencedirect.com/topics/engineering/ion-engines
             % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
             % m_prop = 8.3; % kg, NSTAR ion engine (Dawn probe)
             % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
             m_prop = 58.2; % kg, NEXT ion engine
-        case 'nuclear'
+        case 'Nuclear'
             % https://www.osti.gov/includes/opennet/includes/Understanding%20the%20Atom/SNAP%20Nuclear%20Space%20Reactors.pdf
             m_prop = 854; % kg, SNAP10A
         otherwise
-            fprintf("No such propulsion type");
+            error("No such propulsion type");
     end
     return
 end
@@ -83,25 +83,25 @@ end
 % All values taken from Rocket Propulsion Elements table 2-1
 function Isp = calculatePropIsp(propSys)
     switch propSys.type
-        case 'chemical'
+        case 'Chemical'
             % Juno main engine, LEROS 1b
             % https://en.wikipedia.org/wiki/LEROS
             % https://www.nammo.com/product/nammo-space-leros-1b-apogee-engine/
             Isp = 317;
-        case 'solarsail'
+        case 'Solar Sail'
             % https://www.planetary.org/articles/what-is-solar-sailing
             Isp = 'inf';
-        case 'ion'
+        case 'Ion'
             % Dawn Spacecraft Ion Engine
             % https://en.m.wikipedia.org/wiki/Dawn_(spacecraft)
             % Isp = 3100;
             % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
             Isp = 4190;
-        case 'nuclear'
+        case 'Cuclear'
             % https://www.osti.gov/includes/opennet/includes/Understanding%20the%20Atom/SNAP%20Nuclear%20Space%20Reactors.pdf
             Isp = 850;
         otherwise
-            fprintf("No such propulsion type");
+            error("No such propulsion type");
     end
     return
 end
@@ -110,7 +110,7 @@ end
 % All values taken from Morphological Matrix
 function cost = calculatePropCost(propSys, mfuel_total)
     switch propSys.type
-        case 'chemical'
+        case 'Chemical'
             % Hypergolic fuel cost, $/kg
             % https://www.dla.mil/Energy/Business/Standard-Prices/
             cost_fuel = 150; % MMH
@@ -120,18 +120,18 @@ function cost = calculatePropCost(propSys, mfuel_total)
             m_ox = mfuel_total / (1+r);
             m_fuel = mfuel_total - m_ox;
             cost = cost + m_ox*cost_ox;
-        case 'solarsail'
+        case 'Solar Sail'
             cost = 19944225;
-        case 'ion'
+        case 'Ion'
             cost = 15000000;
             cost_xenon = 850; % $/kg
             cost = cost + mfuel_total*cost_xenon;
-        case 'nuclear'
+        case 'Nuclear'
             cost = 150645600;
             cost_H2 = 3; % Liq Hydrogen, $/kg
             cost = cost + mfuel_total*cost_H2
         otherwise
-            fprintf("No such propulsion type");
+            error("No such propulsion type");
     end
     return
 end
@@ -140,21 +140,21 @@ end
 % Link propulsion system type to its Isp
 function power = calculatePropPower(propSys)
     switch propSys.type
-        case 'chemical'
+        case 'Chemical'
             % Pumps require power but more research necessary
             power = 0;
-        case 'solarsail'
+        case 'Solar Sail'
             power = 0;
-        case 'ion'
+        case 'Ion'
             % https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.465.718&rep=rep1&type=pdf
             % power = 2567; % Watts
             % https://www.researchgate.net/publication/237470667_NEXT_Ion_Propulsion_System_Development_Status_and_Performance
             power = 7220; % Watts
-        case 'nuclear'
+        case 'Nuclear'
             % No clue where to find this
             power = 0;
         otherwise
-            fprintf("No such propulsion type");
+            error("No such propulsion type");
     end
     return
 end
