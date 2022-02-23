@@ -102,7 +102,8 @@ function propSys = calculatePropPower(propSys)
     switch propSys.type
         case 'Chemical'
             % Pumps require power but more research necessary
-            power = 0;
+            % Approximation of the valve power for a single seat solenoid.
+            power = 45; % Watts
         case 'Solar Sail'
             power = 0;
         case 'Ion'
@@ -170,7 +171,7 @@ function propSys = calculatePropCost(propSys)
         case 'Nuclear'
             cost = 150645600;
             cost_H2 = 3; % Liq Hydrogen, $/kg
-            cost = cost + propSys.mfuel_total*cost_H2
+            cost = cost + propSys.mfuel_total*cost_H2;
         otherwise
             error("No such propulsion type");
     end
