@@ -2,7 +2,7 @@
 
 clear
 close all
-clc
+%clc
 
 %% Load folders
 
@@ -34,7 +34,7 @@ flybys.planet = "Venus";
 [mass,time_to_orbit,cost] = sizing_v1(launcher,payload,propulsion,orbit,flybys);
 
 %% Post
-
-mass
-time_to_orbit
-cost
+fprintf("\nORBIT INFO:\n\t%.2f AU perigee\n\t%.1f degrees inclination\n\n",orbit.perihelion/(1.496*10^8),rad2deg(orbit.inclination))
+fprintf("Total payload mass: %.2f kg\n",mass)
+fprintf("It is expected to take %.1f days to reach this orbit\n",time_to_orbit)
+fprintf("It is estimated to cost %.3f Million dollars\n",cost/10^6)
