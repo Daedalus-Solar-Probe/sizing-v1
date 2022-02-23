@@ -1,12 +1,11 @@
 function [mass,time_to_orbit,cost] = sizing_v1(launcher,payload,propulsion,orbit,flybys)
 
-% initial mass estimates
+% initial mass guess
 m_total = 1000; % [kg]
 m_pay = 500; % [kg]
 
 % launch vehicle C3 analysis
-C3 = C3_function(launcher,m_total); % [km^2/s^2]
-launcher.C3 = C3;
+launcher.C3 = C3_function(launcher,m_total); % [km^2/s^2]
 
 % trajectory analysis
 [time_to_orbit,dV] = ...
