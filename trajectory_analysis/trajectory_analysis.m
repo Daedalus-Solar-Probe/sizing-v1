@@ -99,7 +99,7 @@ Planet_Info = [2439.7, 6051.9, 3397, 71492; 22032.0805, 324858.59883, 42828.3143
         return;
     end
     
-    tof = (Planet_Info(6,n))*24*60*60; %(Equation for Hohmann Transfer TOF to Planet)
+    tof = (Planet_Info(6,n)); % [days] (Equation for Hohmann Transfer TOF to Planet)
     
     atrans = 0.5*(149597898+Planet_Info(3,n)); % SemiMajor Axis of Hohmann transfer orbit
     Vs_1 = sqrt(2*((132712440018/Planet_Info(3,n))-(132712440018/(2*atrans)))); %Heliocentric velocity for planet approach
