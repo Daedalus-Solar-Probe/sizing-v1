@@ -4,6 +4,8 @@ clear
 close all
 clc
 
+% if you actually read this, please mesage me to not kms
+
 %% Load folders
 
 addpath propulsion_sizing\
