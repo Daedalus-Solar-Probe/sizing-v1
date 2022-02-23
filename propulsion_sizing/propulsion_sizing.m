@@ -102,8 +102,8 @@ function propSys = calculatePropPower(propSys)
     switch propSys.type
         case 'Chemical'
             % Pumps require power but more research necessary
-            % Approximation of the valve power for a single seat solenoid.
-            power = 45; % Watts
+            % Approximation of the valve power for a single seat, redundant solenoid.
+            power = 78; % Watts
         case 'Solar Sail'
             power = 0;
         case 'Ion'
