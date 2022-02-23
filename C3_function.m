@@ -18,7 +18,8 @@ end
 C3_output = interp1(m,C3,pay_mass); %km^2/s^2
 
 if isnan(C3_output)
-    error("Payload out of range for launch vehicle!")
+%     error("Payload out of range for launch vehicle!")
+    C3_output = 0;
 end
 
 end % function
