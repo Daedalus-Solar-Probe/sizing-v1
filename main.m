@@ -2,7 +2,7 @@
 
 clear
 close all
-%clc
+clc
 
 %% Load folders
 
