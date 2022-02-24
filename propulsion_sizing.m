@@ -40,8 +40,34 @@ if propulsion.type == "Solar Sail"
     % power requred for sail
     P_prop = 0; % [W]
 
-    %%%%%% Need help! %%%%%%
-    cost = 0; % [USD]
+    % Ethan's attempts at cost estimation:
+    % using analogous cost estimation suggested from cost est. lecture
+    % https://ntrs.nasa.gov/api/citations/20120015033/downloads/20120015033.pdf
+    % slide 13: area = 85m*85m = 7225m^2
+    % final slide: gives $35M FY2011 cost for development+fabrication
+    %             ->$43961098 FY2022 cost
+    % fairly crude model: cost=43961098*(S_sail/7225 m^2)
+    cost = 43961098*(S_sail/7225); % [USD]
+    
+    % possibly better cost model? (this needs to be updated to reflect ACS3 materials)
+    % this also does not implement cost of booms, deployment system, development costs, etc
+    % https://earth.esa.int/web/eoportal/satellite-missions/i/ikaros
+    % gives that IKAROS membrane is 0.0075 mm of polyimide ~ 0.0003" thick
+    % and covered with 8e-5 mm thick evaporated aluminum
+    % https://catalog.cshyde.com/item/films/kapton-polyimide-film-type-hn/18-1-3f-24
+    % gives .0003" thick Kapton polyimide film is $28.74 per 25in x 1ft
+    % ->25in x 1ft= 0.635m*0.3048m = 0.194 m^2
+    % so polyimide cost would be $28.74/0.194 m^2 = $148.14/m^2
+    % cost_poly=148.14*S_sail;
+    % approx. volume of aluminum needed would be volume=area*thickness
+    %  ->vol_al(m^3)=S_sail*(8e-8 m)
+    % https://markets.businessinsider.com/commodities/aluminum-price
+    % gives $3.30/kg for aluminum as of 2/24
+    % Al density=2.7 g/cm^3=2700 kg/m^3
+    %  ->mass_al(kg)=(2700 kg/m^3)*vol_al
+    % cost_al(USD)=mass_al*($3.30/kg)
+    % cost_al = mass_al*3.30
+    % cost=cost_poly+cost_al; (USD)
 
 % ion engine case
 elseif propulsion.type == "Ion"
