@@ -99,7 +99,7 @@ Planet_Info = [2439.7, 6051.9, 3397, 71492; 22032.0805, 324858.59883, 42828.3143
         return;
     end
     
-    tof = (Planet_Info(6,n)); % [days] (Equation for Hohmann Transfer TOF to Planet)
+    tof = (Planet_Info(6,n)); %(Equation for Hohmann Transfer TOF to Planet)
     
     atrans = 0.5*(149597898+Planet_Info(3,n)); % SemiMajor Axis of Hohmann transfer orbit
     Vs_1 = sqrt(2*((132712440018/Planet_Info(3,n))-(132712440018/(2*atrans)))); %Heliocentric velocity for planet approach
@@ -110,12 +110,7 @@ function [perihelion, aphelion] = flyby(Vs_1, flyby_planet)
 % assumptions:
 %
 
-Planet_Info = [2439.7, 6051.9, 3397, 71492; % r
-    22032.0805, 324858.59883, 42828.3143, 126712767.858; % mu
-    57909101, 108207284, 227944135, 778279959;  % a
-    7600537, 19413722, 59356281, 374479305;  % T
-    7.5, 2.5, 2.9, 8.8; % dV
-    106.75, 120, 259.25, 730]; % tof
+Planet_Info = [2439.7, 6051.9, 3397, 71492; 22032.0805, 324858.59883, 42828.3143, 126712767.858; 57909101, 108207284, 227944135, 778279959; 7600537, 19413722, 59356281, 374479305; 7.5, 2.5, 2.9, 8.8; 106.75, 120, 259.25, 730];
 % Col 1-Mercury 2-Venus 3-Mars 4-Jupiter
 % Row 1-Equatorial Radius(km) 2-Grav Param(km^3/s^2) 3-SemiMajor Axis(km)
 % 4- Period(sec) 5- Hohmann dV to reach from Earth(km/s) 

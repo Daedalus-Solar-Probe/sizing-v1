@@ -2,8 +2,8 @@ function [mass,time_to_orbit,cost] = sizing_v1(launcher,payload,propulsion,orbit
 
 
 % initial mass guess
-mass.new.total = 1000; % [kg]
-mass.new.bus = 500; % [kg]
+mass.new.total = 500; % [kg]
+mass.new.bus = 400; % [kg]
 
 for i = 1:3
 
