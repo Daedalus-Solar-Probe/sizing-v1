@@ -46,10 +46,6 @@ payload.cost = [19.3, 13.7, 17.6, 41.5, 26.9, 6.8, 24.3, 17.9, 24.3]*1e6; % [USD
 propulsion.name = "Solar Sail based on ACS3";
 propulsion.type = "Solar Sail";
 propulsion.beta = 0.1; % [-] lightness factor
-% Source for density:
-
-% https://www.planetary.org/space-missions/acs3 (spars)
-% couldn't verify sail area density
 propulsion.rho_material = 0.0133; % [kg/m^2] sail material area density
 propulsion.lambda_spars = 0.1286; % [kg/m] spar material linear density
 
