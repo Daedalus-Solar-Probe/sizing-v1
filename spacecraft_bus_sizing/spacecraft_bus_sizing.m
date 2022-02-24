@@ -1,4 +1,4 @@
-function [m_bus, cost] = spacecraft_bus_sizing(payload, P_prop)
+function payload = spacecraft_bus_sizing(payload, propPower)
 % Inputs:
 %   payload - struct containing payload information
 %       payload.sensors - [1x9] array for payload sensors included
@@ -13,17 +13,26 @@ function [m_bus, cost] = spacecraft_bus_sizing(payload, P_prop)
 
     %% Definitions
     
-    % Payload Library [cor, tsi, euvi, dsi, uvs, mag, sw, epp, rpw]
-    payLibrary = [10, 7, 10, 25, 15, 1.5, 10, 9, 10; % mass [kg]
-        15, 14, 12, 37, 22, 2.5, 15, 9, 15; % power [watts]
-        19.3, 13.7, 17.6, 41.5, 26.9, 6.8, 24.3, 17.9, 24.3]; % cost [USD FY22 Millions]
-
-    % Total payload mass, power, and cost
-    m_pay = 0;p_pay = 0;c_pay = 0;
-    for i = 1:9
-        m_pay = m_pay + payLibrary(1,i)*payload(i); % mass
-        p_pay = p_pay + payLibrary(2,i)*payload(i); % power
-        c_pay = c_pay + payLibrary(3,i)*payload(i); % cost
+    % Get sensor package power and mass
+    switch payload.package
+    	case "ALL"
+            payload.massSensors = 97.5; % kg
+            payload.powerSensors = 141.5; % W
+            payload.sensorCost =  192304763.77; % USD
+    	case "RM"
+            payload.massSensors = 68.5; % kg
+            payload.powerSensors = 102.5; % W
+            payload.sensorCost =  125,860,878.82; % USD
+    	case "INSITU"
+            payload.massSensors = 30.5; % kg
+            payload.powerSensors = 41.5; % W
+            payload.sensorCost =  73,289,286.47; % USD
+    	case "DEM"
+            payload.massSensors = 36.5; % kg
+            payload.powerSensors = 51.5; % W
+            payload.sensorCost =  65,939,968.38; % USD
+    	otherwise
+            fprintf("No such sensor package");
     end
 
     %Specific power of spacecraft solar panels (w/kg)
@@ -34,16 +43,20 @@ function [m_bus, cost] = spacecraft_bus_sizing(payload, P_prop)
 
     %% Mass
     
-    % power mass
-    m_power = (p_pay + P_prop) / powersource_specific_power;
+    % Power mass
+    payload.totalPowerReq = payload.powerSensors + propPower;
+    payload.massPower = (payload.totalPowerReq) / powersource_specific_power;
 
     % Bus Mass (kg) [Based upon Michael's estimate equation]
-    m_bus = (m_pay + m_power)/15*100;
+    payload.busMass = (payload.massSensors + payload.massPower)/15*100;
+
+    % Total mass
+    payload.totalMass = payload.busMass + payload.massPower + payload.massSensors;
 
     %% Cost
     
     % Bus Cost
-    c_bus = 1.28*(2.835*1000*m_bus^0.716);
+    c_bus = 1.28*(2.835*1000*payload.totalMass^0.716);
     
     % Structure/Thermal Cost
     m_struc = 0;
@@ -56,7 +69,7 @@ function [m_bus, cost] = spacecraft_bus_sizing(payload, P_prop)
     c_adcs = c_adcs*(1 + 0.524*SSE_adcs); % 70% certainty
 
     % EPS Cost
-    m_eps = m_power;
+    m_eps = payload.massPower;
     c_eps = 1.28*1000*64.3*(m_eps);SSE_eps = .41;
     c_eps = c_eps*(1 + 0.524*SSE_eps); % 70% certainty
 
@@ -69,15 +82,15 @@ function [m_bus, cost] = spacecraft_bus_sizing(payload, P_prop)
     c_ttc = 1.28*1000*26916;
     
     % Bus + Cost Integration
-    c_int = 1.28*0.195*(c_bus+c_pay);SSE_int = 0.4;
+    c_int = 1.28*0.195*(c_bus+payload.sensorCost);SSE_int = 0.4;
     c_int = c_int*(1 + 0.524*SSE_int);
 
     % PlaceholderCosts
     m_comm = 0;
     num_channels = 0;
     c_comms = 1.28*1000*(339*(m_comm)+5127*(num_channels));
-    c_elec = 1.28*1000*64.3*m_bus;
+    c_elec = 1.28*1000*64.3*payload.totalMass;
 
-    cost = c_pay + c_bus + c_struc + c_adcs + c_eps + c_rcs + c_ttc + c_int + c_comms + c_elec;
+    payload.totalCost = payload.sensorCost + c_bus + c_struc + c_adcs + c_eps + c_rcs + c_ttc + c_int + c_comms + c_elec;
 
 end
