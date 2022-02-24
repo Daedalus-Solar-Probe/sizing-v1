@@ -31,7 +31,7 @@ elseif propulsion.type == "Ion"
     T = propulsion.accel; % [km/s]
 
     % orbital period
-    period = 2*pi*sqrt(final_orbit.perihelion^3/mu); % [days]
+    period = 2*pi*sqrt((final_orbit.perihelion)^3/mu); % [days]
 
     % delta-V per period
     delta_v = T*period/1000; % [km/s]

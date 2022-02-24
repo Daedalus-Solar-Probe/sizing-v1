@@ -30,14 +30,14 @@ if flybys.name ~= "None"
 
     else
 
-        [min_tof, Vs_1, ~] = initial_flyby_min_TOF(C3, flybys);
+        [min_tof, Vs_1, fpa] = initial_flyby_min_TOF(C3, flybys);
 
         tof_total = tof_total + min_tof; % [days]
 
     end % if
 
     % find the modified orbit after the flyby
-    [perihelion, aphelion] = flyby(Vs_1, flybys);
+    [perihelion, aphelion] = flyby(Vs_1, flybys, fpa);
 
     initial_orbit.perihelion = perihelion; % [km]
     initial_orbit.aphelion = aphelion; % [km]
