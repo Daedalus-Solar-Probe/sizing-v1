@@ -31,7 +31,7 @@ elseif propulsion.type == "Ion"
     T = propulsion.accel; % [km/s]
 
     % orbital period
-    period = 2*pi*sqrt(final_orbit.perihelion^3/mu); % [days]
+    period = 2*pi*sqrt((final_orbit.perihelion)^3/mu); % [days]
 
     % delta-V per period
     delta_v = T*period/1000; % [km/s]
@@ -40,7 +40,7 @@ elseif propulsion.type == "Ion"
     v = sqrt(mu/final_orbit.perihelion); % [km/s]
 
     % degrees per orbit
-    inclin_change = 0.5*asind(delta_v / (2*v)); % [deg/orbit]
+    inclin_change = 2*asind(delta_v / (2*v)); % [deg/orbit]
 
     % number of orbits required
     num_periods = final_orbit.inclination / inclin_change; % [orbits]
