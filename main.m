@@ -11,21 +11,21 @@ clc
 % launch_vehicle.C3 = 0:10:100; % [km^2/s^2]
 % launch_vehicle.mass = [10850, 9130, 7630, 6310, 5150, 4120, 3250, 2420, 1780, 1370, 755]; % [kg]
 
-% Falcon Heavy (Recovery)
-launch_vehicle.name = "Falcon Heavy (Recovery)";
-launch_vehicle.C3 = 0:10:70; % [km^2/s^2]
-launch_vehicle.mass = [6690, 4930, 3845, 2740, 1805, 1005, 320, 0]; % [kg]
+% % Falcon Heavy (Recovery)
+% launch_vehicle.name = "Falcon Heavy (Recovery)";
+% launch_vehicle.C3 = 0:10:70; % [km^2/s^2]
+% launch_vehicle.mass = [6690, 4930, 3845, 2740, 1805, 1005, 320, 0]; % [kg]
 
-% % Falcon Heavy (Expendable)
-% launch_vehicle.name = "Falcon Heavy (Expendable)";
-% launch_vehicle.C3 = 0:10:100; % [km^2/s^2]
-% launch_vehicle.mass = [15010, 12345, 10115, 8225, 6640, 5280, 4100, 3080, 2195, 1425, 770]; % [kg]
-% 
+% Falcon Heavy (Expendable)
+launch_vehicle.name = "Falcon Heavy (Expendable)";
+launch_vehicle.C3 = 0:10:100; % [km^2/s^2]
+launch_vehicle.mass = [15010, 12345, 10115, 8225, 6640, 5280, 4100, 3080, 2195, 1425, 770]; % [kg]
+
 % % NASA SLS
 % launch_vehicle.name = "NASA SLS";
 % launch_vehicle.C3 = 0:10:100; % [km^2/s^2]
 % launch_vehicle.mass = [26910, 22085, 18266, 15201, 12739, 10628, 8920, 7513, 6307, 5201, 4296]; % [kg]
-% 
+
 % % New Glenn
 % launch_vehicle.name = "New Glenn";
 % launch_vehicle.C3 = 0:10:40; % [km^2/s^2]
@@ -52,7 +52,7 @@ propulsion.lambda_spars = 0.1286; % [kg/m] spar material linear density
 % % NEXT Ion Engine (DOI 10.2514/6.2007-5199)
 % propulsion.name = "NEXT Ion Engines";
 % propulsion.type = "Ion";
-% propulsion.accel = 1e-04; % [km/s^2] nominal acceleration required     currently arbituary ~100mm/s^2
+% propulsion.accel = 1e-05; % [km/s^2] nominal acceleration required     currently arbituary ~10mm/s^2
 % propulsion.thrust = 0.236; % [N/engine] thrust per engine
 % propulsion.power = 6900; % [W/engine] power per engine
 % propulsion.Isp = 4100; % [s] specific impulse per engine

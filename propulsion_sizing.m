@@ -53,7 +53,7 @@ elseif propulsion.type == "Ion"
     m_payload = mass.payload; % [kg]
 
     % required nominal acceleration
-    accel = propulsion.accel; % [m/s^2]
+    accel = propulsion.accel*1000; % [m/s^2]
 
     % required thrust estimate
     F_total = m_spacecraft*accel; % [N]
