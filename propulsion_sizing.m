@@ -120,7 +120,11 @@ elseif propulsion.type == "Ion"
     cost_engine = propulsion.cost; % [USD/engine]
 
     % cost of xenon
-    cost_xenon = 850; % [USD/kg]         source on this?
+    % https://www.dla.mil/Portals/104/Documents/Energy/Standard%20Prices/Aerospace%20Prices/E_2022Feb1AerospaceStandardPrices_220202.pdf?ver=Vpk1UcDGxl9qd5ne0o33Ag%3d%3d
+    % $20.85 / liter
+    % https://en.wikipedia.org/wiki/Xenon
+    % "Equivalent costs per kilogram of xenon are calculated by multiplying cost per liter by 174."
+    cost_xenon = 20.85*174; % [USD/kg]
 
     % cost of ion system
     cost = cost_engine*N_engines + m_prop*cost_xenon; % [USD]
