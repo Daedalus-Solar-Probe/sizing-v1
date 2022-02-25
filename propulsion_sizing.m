@@ -18,7 +18,7 @@ if propulsion.type == "Solar Sail"
     rho_material = propulsion.rho_material; % [kg/m^2]
     
     % spar material linear density
-    lambda_spars = propulsion.rho_material; % [kg/m]
+    lambda_spars = propulsion.lambda_spars; % [kg/m]
 
     % local solar gravity at 1 AU
     a_g = mu/AU^2*1000; % [m/s^2]
