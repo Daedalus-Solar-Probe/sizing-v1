@@ -8,8 +8,12 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
     tof_total = 0; % [km/s]
     
     % Launch vehicle excess Earth C3
-    C3 = 8;
+    C3 = interp1(launch_vehicle.mass,launch_vehicle.C3,mass.total,'linear','extrap'); % [km^2/s^2]
     
+    % check for positive C3
+    if C3 < 0
+        error("Negative C3")
+    end % if
     
     % are we doing any flybys?
     if flybys.name ~= "None"
@@ -47,8 +51,8 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
     end % if doing a flyby
     
     if (propulsion.type == "Solar Sail" && flybys.planet == "None") 
+    
         % spiral orbit toward the sun
-
         initial_orbit.perihelion = 149597898; % [km]
         initial_orbit.aphelion = 149597898; % [km]
         [tof,dV] = spiraling(propulsion,initial_orbit,final_orbit);
