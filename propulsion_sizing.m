@@ -126,6 +126,26 @@ elseif propulsion.type == "Ion"
     % cost of ion system
     cost = cost_engine*N_engines + m_prop*cost_xenon; % [USD]
 
+elseif propulsion.type == "Chemical"
+
+    % payload mass (spacecraft mass minus propulsion and propellant)
+    m_payload = mass.payload; % [kg]
+
+    %  Isp of engine
+    Isp = propulsion.Isp; % [s]
+
+    % mass of engine
+    m_engine = propulsion.mass; % [kg]
+
+    % propellant mass
+    m_prop = exp(dV/g0/Isp)*(m_payload + m_engine)-m_payload-m_engine; % [kg]
+
+    % propulsion system mass
+    m_propsys = m_prop + m_engine; % [kg]
+
+    % cost of propulsion system
+    cost = propulsion.cost; % [USD]
+
 else
 
     error("Unsupported Propulsion type!")
