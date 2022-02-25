@@ -100,13 +100,6 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
         end
 
         [min_tof, index] = min(TOF_list);
-        fprintf("index = %f\n", index);
-        figure(1)
-        plot(r2_list / 1.496e8,TOF_list)
-        xlabel('Distance from Sun [AU]')
-        ylabel('Time of flight [days]')
-        title('Time to reach 0.48 AU from Venus with post-flyby orbit and spiral trajectory')
-        grid on
 
         tof_total = tof_total + min(TOF_list); % [days]
 
