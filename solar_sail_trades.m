@@ -90,8 +90,8 @@ end % for
 figure(2)
 plot(betas,tofs,'b')
 grid on
-xlabel("Final Inclination [deg]")
-ylabel("Lightness Factor [-]")
+xlabel("Lightness Factor [-]")
+ylabel("Time to Orbit [days]")
 title("Time to Orbit vs Lightness Factor Trade Study")
 
 % reset lightness factor
@@ -119,5 +119,76 @@ xlabel("Lightness Factor [-]")
 ylabel("Spacecraft Mass [kg]")
 title("Spacecraft Mass vs Lightness Factor")
 
-% reset lightness factor
+% reset lightness factor, mass
 propulsion.beta = 0.1; % [-]
+
+%%% ethan's sensitivity attempts as of 2/25 follow: %%%
+
+%% Spacecraft mass vs sail density
+
+% initialize 
+sail_rhos = linspace(0.001,0.025); % [-]
+masses = zeros(size(inclinations)); % [kg]
+tofs = zeros(size(inclinations)); % [days]
+
+for i = 1:length(sail_rhos)
+
+    propulsion.rho_material = sail_rhos(i);
+    [tof,mass,cost] = sizing(launch_vehicle,payload,propulsion,orbit,flybys,mass0);
+    masses(i) = mass.total;
+    tofs(i)= tof;
+
+end % for
+
+% plot
+figure(4)
+plot(sail_rhos,masses,'b')
+grid on
+xlabel("Sail Material Area Density [kg/m^2]")
+ylabel("Spacecraft Mass [kg]")
+title("Spacecraft Mass vs Sail Density")
+
+figure(5)
+plot(sail_rhos,tofs,'b')
+grid on
+xlabel("Sail Material Area Density [kg/m^2]")
+ylabel("Time to Orbit [days]")
+title("Time to Orbit vs Sail Density")
+
+% reset sail density
+propulsion.rho_material = 0.0133; 
+
+%% Spacecraft mass vs spar density
+
+% initialize 
+spar_rhos = linspace(0.01,1); % [-]
+masses = zeros(size(inclinations)); % [kg]
+tofs = zeros(size(inclinations)); % [days]
+
+for i = 1:length(spar_rhos)
+
+    propulsion.lambda_spars = sail_rhos(i);
+    [tof,mass,cost] = sizing(launch_vehicle,payload,propulsion,orbit,flybys,mass0);
+    masses(i) = mass.total;
+    tofs(i)= tof;
+
+end % for
+
+% plot
+figure(6)
+plot(spar_rhos,masses,'b')
+grid on
+xlabel("Spar Material Linear Density [kg/m]")
+ylabel("Spacecraft Mass [kg]")
+title("Spacecraft Mass vs Spar Density")
+
+figure(7)
+plot(spar_rhos,tofs,'b')
+grid on
+xlabel("Spar Material Linear Density [kg/m]")
+ylabel("Time to Orbit [days]")
+title("Time to Orbit vs Spar Density")
+
+% reset sail density
+propulsion.lambda_spars = 0.1286;
+
