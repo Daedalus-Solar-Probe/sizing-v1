@@ -67,7 +67,11 @@ propulsion.lambda_spars = 0.1286; % [kg/m] spar material linear density
 
 % % Chemical Engine (storable)
 % propulsion.name = "Chemical";
+% propulsion.type = "Chemical";
+% propulsion.thrust = 635; % [N/engine] thrust per engine
 % propulsion.Isp = 317; % [s] specific impulse (Juno Main Engine)
+% propulsion.mass = 4.5; % [kg/engine] mass per engine
+% propulsion.cost = 4000000; % [USD/engine] cost per engine   note: currently arbitrary cost
 
 %% Final Orbit Options
 
