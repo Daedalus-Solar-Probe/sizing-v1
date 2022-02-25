@@ -65,7 +65,9 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
         % increment tof and dV
         dV_total = dV_total + dV; % [km/s]
         tof_total = tof_total + tof; % [days]
+
     elseif (propulsion.type == "Ion")
+
         % crank the inclination
         initial_orbit.inclination = 90;
         [tof,dV] = cranking(propulsion,initial_orbit);
@@ -75,12 +77,12 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
         tof_total = tof_total + tof; % [days]
 
         % spiral orbit toward the sun
+        initial_orbit.perihelion = flybys.a;
         [tof,dV] = spiraling(propulsion,initial_orbit,final_orbit);
         
         % increment tof and dV
         dV_total = dV_total + dV; % [km/s]
         tof_total = tof_total + tof; % [days]
-        
     end
 
 end % function
