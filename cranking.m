@@ -27,29 +27,31 @@ if propulsion.type == "Solar Sail"
 % ion engine propulsion
 elseif propulsion.type == "Ion"
 
-    % nominal acceleration
-    T = propulsion.accel; % [km/s]
-
-    % orbital period
-    period = 2*pi*sqrt((final_orbit.perihelion)^3/mu); % [days]
-
-    % delta-V per period
-    delta_v = T*period/1000; % [km/s]
-
-    % final velocity (circular)
-    v = sqrt(mu/final_orbit.perihelion); % [km/s]
-
-    % degrees per orbit
-    inclin_change = 2*asind(delta_v / (2*v)); % [deg/orbit]
-
-    % number of orbits required
-    num_periods = final_orbit.inclination / inclin_change; % [orbits]
-
-    % time of flight
-    tof = period * num_periods / 86400; % [days]
-
-    % total delta-V required
-    dV = delta_v * num_periods; % [km/s]
+%     % nominal acceleration
+%     T = propulsion.accel; % [km/s]
+% 
+%     % orbital period
+%     period = 2*pi*sqrt((final_orbit.perihelion)^3/mu); % [days]
+% 
+%     % delta-V per period
+%     delta_v = T*period/1000; % [km/s]
+% 
+%     % final velocity (circular)
+%     v = sqrt(mu/final_orbit.perihelion); % [km/s]
+% 
+%     % degrees per orbit
+%     inclin_change = 2*asind(delta_v / (2*v)); % [deg/orbit]
+% 
+%     % number of orbits required
+%     num_periods = final_orbit.inclination / inclin_change; % [orbits]
+% 
+%     % time of flight
+%     tof = period * num_periods / 86400; % [days]
+% 
+%     % total delta-V required
+%     dV = delta_v * num_periods; % [km/s]
+    dV = sqrt(mu/final_orbit.perihelion) * final_orbit.inclination * pi/180;
+    tof = dV / propulsion.accel / 86400;
 
 % other propulsion type
 else
