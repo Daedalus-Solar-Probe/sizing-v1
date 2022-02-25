@@ -84,7 +84,3 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
     end
 
 end % function
-    
-
-
-end % function
