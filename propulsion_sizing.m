@@ -49,25 +49,51 @@ if propulsion.type == "Solar Sail"
     % fairly crude model: cost=43961098*(S_sail/7225 m^2)
     cost = 43961098*(S_sail/7225); % [USD]
     
-    % possibly better cost model? (this needs to be updated to reflect ACS3 materials)
-    % this also does not implement cost of booms, deployment system, development costs, etc
-    % https://earth.esa.int/web/eoportal/satellite-missions/i/ikaros
-    % gives that IKAROS membrane is 0.0075 mm of polyimide ~ 0.0003" thick
-    % and covered with 8e-5 mm thick evaporated aluminum
-    % https://catalog.cshyde.com/item/films/kapton-polyimide-film-type-hn/18-1-3f-24
-    % gives .0003" thick Kapton polyimide film is $28.74 per 25in x 1ft
-    % ->25in x 1ft= 0.635m*0.3048m = 0.194 m^2
-    % so polyimide cost would be $28.74/0.194 m^2 = $148.14/m^2
-    % cost_poly=148.14*S_sail;
+    % possibly better cost model? 
+    % crude attempt to include development and deployment costs
+    % https://pure.tudelft.nl/ws/portalfiles/portal/87293343/6.2021_1260.pdf
+    % gives that ASC3 membrane is 2 micrometer of PEN = 0.002 mm thick
+    % and covered with 100nm = 1e-7 m thick evaporated aluminum
+    % and has 15nm=1.5e-8m thick chromium layer
+    %
+    % https://www.sigmaaldrich.com/US/en/product/aldrich/gf23662043
+    % gives 0.0013~0.002mm thick PEN at $223/(150mm*150mm) sheet
+    % ->0.15m*0.15m=0.0225m^2
+    % so PEN cost would be $223/0.0225 m^2 = $9911.11/m^2
+    % cost_PEN=9911.11*S_sail; in USD
+    %
     % approx. volume of aluminum needed would be volume=area*thickness
-    %  ->vol_al(m^3)=S_sail*(8e-8 m)
+    %  ->vol_al(m^3)=S_sail*(1e-7 m)
     % https://markets.businessinsider.com/commodities/aluminum-price
     % gives $3.30/kg for aluminum as of 2/24
     % Al density=2.7 g/cm^3=2700 kg/m^3
     %  ->mass_al(kg)=(2700 kg/m^3)*vol_al
-    % cost_al(USD)=mass_al*($3.30/kg)
-    % cost_al = mass_al*3.30
-    % cost=cost_poly+cost_al; (USD)
+    %  ->cost_al(USD)=mass_al*($3.30/kg)
+    % mass_al = 2700*vol_al; %in kg
+    % cost_al = mass_al*3.30; %in usd
+    %
+    %
+    % approx. volume of chromium needed would be volume=area*thickness
+    %  ->vol_Cr(m^3)=S_sail*(1.5e-8 m)
+    % https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/media/files/mis-202112-chrom.pdf
+    % gives $5.65/lb=$12.46/kg as of Dec. 2021
+    % Cr density=7.19 g/cm^3=7190 kg/m^3
+    %  ->mass_Cr(kg)=(7190 kg/m^3)*vol_Cr
+    %  ->cost_Cr(USD)=mass_Cr*($12.46/kg)
+    % mass_Cr = 7190*vol_Cr; %in kg
+    % cost_Cr = mass_al*12.46; %in usd
+    %
+    % sail_cost=cost_PEN+cost_al+cost_Cr; (USD), sail only
+    % 
+    % assuming boom and deployment will be approx 50% of total unit cost
+    % (not sure if this is valid assumption but haven't been able to to 
+    % quantize deployment and boom costs):
+    % sail_cost=2*cost_PEN+cost_al+cost_Cr;
+    %
+    % from https://ntrs.nasa.gov/api/citations/20120015033/downloads/20120015033.pdf
+    % DDT&E given at 10/25 of flight unit cost = 40% of total cost goes to
+    % development:
+    % cost=1.4*sail_cost; %40% extra for DDT&E
 
 % ion engine case
 elseif propulsion.type == "Ion"
