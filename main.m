@@ -55,9 +55,11 @@ propulsion.lambda_spars = 0.1286; % [kg/m] spar material linear density
 % propulsion.accel = 1e-05; % [km/s^2] nominal acceleration required     currently arbituary ~10mm/s^2
 % propulsion.thrust = 0.236; % [N/engine] thrust per engine
 % propulsion.power = 6900; % [W/engine] power per engine
-% propulsion.Isp = 4100; % [s] specific impulse per engine
+% propulsion.Isp = 4190; % [s] specific impulse per engine
 % propulsion.mass = 58.2; % [kg/engine] mass per engine
-% propulsion.cost = 15000000; % [USD/engine] cost per engine        source on this?
+% https://www.giesepp.com/wp-content/uploads/2019/11/A831-Mission-Cost-for-Gridded-Ion-Engines-using-Alternative-Propellants.pdf
+% Source above estimates that engine cost is $1.4M/kW adjusted to FY2022 $
+% propulsion.cost = 1400000*propulsion.power/1000; % [USD/engine] cost per engine (FY2022 $)
 
 % % Chemical Engine (storable)
 % propulsion.name = "Chemical";

@@ -27,16 +27,16 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
     
             atrans = 0.5*(149597898+flybys.a); % [km] SemiMajor Axis of Hohmann transfer orbit
             Vs_1 = sqrt(2*((mu/flybys.a)-(mu/(2*atrans)))); % [km/s] Heliocentric velocity for planet approach
-    
+            fpa = 0;
         else
     
-            [min_tof, Vs_1, ~] = initial_flyby_min_TOF(C3, flybys);
+            [min_tof, Vs_1, fpa] = initial_flyby_min_TOF(C3, flybys);
             tof_total = tof_total + min_tof; % [days]
     
         end % if
     
         % find the modified orbit after the flyby
-        [perihelion, aphelion] = flyby(Vs_1, flybys);
+        [perihelion, aphelion] = flyby(Vs_1, flybys, fpa);
     
         initial_orbit.perihelion = perihelion; % [km]
         initial_orbit.aphelion = aphelion; % [km]
@@ -65,13 +65,24 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
         % increment tof and dV
         dV_total = dV_total + dV; % [km/s]
         tof_total = tof_total + tof; % [days]
+
     elseif (propulsion.type == "Ion")
-        [tof, dV] = ion_spiral_and_cranking(propulsion, flybys, final_orbit);
+
+        % crank the inclination
+        initial_orbit.inclination = 90;
+        [tof,dV] = cranking(propulsion,initial_orbit);
+        
+        % increment tof and dV
+        dV_total = dV_total + dV; % [km/s]
+        tof_total = tof_total + tof; % [days]
+
+        % spiral orbit toward the sun
+        initial_orbit.perihelion = flybys.a;
+        [tof,dV] = spiraling(propulsion,initial_orbit,final_orbit);
+        
+        % increment tof and dV
         dV_total = dV_total + dV; % [km/s]
         tof_total = tof_total + tof; % [days]
     end
-
-    
-
 
 end % function
