@@ -52,7 +52,9 @@ function [min_tof, Vs_1, fpa] = initial_flyby_min_TOF(C3, flybys)
             
             E1 = 2*atan( sqrt((1-e)/(1+e)) * tan(theta_1/2) );
             E2 = 2*atan( sqrt((1-e)/(1+e)) * tan(theta_2/2) );
-            
+            if E1 < 0
+               E1 = E1 + 2*pi; 
+            end
             if E2 < 0
                E2 = E2 + 2*pi; 
             end
