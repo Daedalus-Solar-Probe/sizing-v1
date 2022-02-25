@@ -15,7 +15,6 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
         error("Negative C3")
     end % if
     
-    
     % are we doing any flybys?
     if flybys.name ~= "None"
     
@@ -51,8 +50,11 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
     
     end % if doing a flyby
     
-    if (propulsion.type == "Solar Sail") 
+    if (propulsion.type == "Solar Sail" && flybys.planet == "None") 
+    
         % spiral orbit toward the sun
+        initial_orbit.perihelion = 149597898; % [km]
+        initial_orbit.aphelion = 149597898; % [km]
         [tof,dV] = spiraling(propulsion,initial_orbit,final_orbit);
         
         % increment tof and dV
@@ -63,6 +65,59 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
         [tof,dV] = cranking(propulsion,final_orbit);
         
         % increment tof and dV
+        dV_total = dV_total + dV; % [km/s]
+        tof_total = tof_total + tof; % [days]
+
+    elseif (propulsion.type == "Solar Sail")
+        % Post flyby trajectory 
+        %[tof,dV] = post_flyby_solar_sail(propulsion, flybys, initial_orbit, final_orbit);
+        
+        r1 = flybys.a;
+        r2 = initial_orbit.perihelion;
+        if initial_orbit.perihelion < final_orbit.perihelion
+            r2 = final_orbit.perihelion;
+        end
+    
+        a = (initial_orbit.perihelion + initial_orbit.aphelion) / 2;
+        e = (initial_orbit.aphelion - initial_orbit.perihelion) / (2*a);
+    
+        r2_list = linspace(r1, r2, 10001);
+        TOF_list = zeros(1,length(r2));
+        theta_1 = 2*pi - acos(1/e*(a*(1-e^2)/r1 - 1));
+        E1 = 2*atan( sqrt((1-e)/(1+e)) * tan(theta_1/2) );
+
+        if E1 < 0
+               E1 = E1 + 2*pi;
+        end
+
+        for i = 1:length(r2_list)
+            theta_2 = 2*pi - acos(1/e*(a*(1-e^2)/r2_list(i) - 1));
+            E2 = 2*atan( sqrt((1-e)/(1+e)) * tan(theta_2/2) );
+            
+            if E2 < 0
+               E2 = E2 + 2*pi; 
+            end
+            
+            initial_orbit.perihelion = r2_list(i);
+            [tof,dV] = spiraling(propulsion,initial_orbit,final_orbit);
+            TOF_list(i) = abs(sqrt(a^3/mu) * (E2 - E1 - e* (sin(E2) - sin(E1))) / 86400) + tof;
+        end
+
+        [min_tof, index] = min(TOF_list);
+
+        tof_total = tof_total + min(TOF_list); % [days]
+
+%         if initial_orbit.perihelion < final_orbit.perihelion
+%         initial_orbit.perihelion = final_orbit.perihelion;
+%         end
+
+        % spiral orbit toward the sun
+%         [tof,dV] = spiraling(propulsion,initial_orbit,final_orbit);
+%         dV_total = dV_total + dV; % [km/s]
+%         tof_total = tof_total + tof; % [days]
+        
+        % crank the inclination
+        [tof,dV] = cranking(propulsion,final_orbit);
         dV_total = dV_total + dV; % [km/s]
         tof_total = tof_total + tof; % [days]
 
