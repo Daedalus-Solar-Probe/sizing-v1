@@ -172,6 +172,10 @@ elseif propulsion.type == "Chemical"
 
     % cost of propulsion system
     cost = propulsion.cost; % [USD]
+    
+    % power required for chemical engine
+    P_eng_valve = 78; % [W], for actuation of engine valves
+    P_prop =  P_eng_valve; % [W]
 
 else
 
