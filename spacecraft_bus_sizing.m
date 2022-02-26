@@ -1,4 +1,4 @@
-function [m_bus, cost] = spacecraft_bus_sizing(payload,P_prop)
+function [m_bus, cost] = spacecraft_bus_sizing(payload,P_prop,orbit)
 
 % payload sensors
 m_sensors = sum(payload.mass); % [kg]
@@ -8,7 +8,7 @@ c_sensors = sum(payload.cost); % [USD]
 % solar panel specific power
 Hsun = 6.33e7; % radiant solar intensity at the sun’s surface [W/m^2]
 Rsun = 6.95700e8; % radius of sun [m]
-D = 0.5*1.496e11; % spacecraft radius to sun [m] (placeholder of 0.5 AU, maybe pass in final radius??)
+D = orbit.perihelion; % spacecraft radius to sun at perihelion [m]
 Ho = (Rsun/D)^2 * Hsun; % radiant solar intensity at spacecraft [W/m^2]
 rho_SP = 2.06; % Spectrolab Space Panels for 6mm thick coverglass [kg/m^2]
 spec_power = Ho/rho_SP; % [W/kg]
@@ -49,13 +49,13 @@ c_ttc = 1.28*1000*26916;
 % See Mass / Costs Doc in Structures
 c_bus = c_struc_70 + c_adcs_70 + c_eps_70 + c_rcs_70 + c_ttc;
 
-% Bus + Cost Integration (FY22 $Millions)
-c_int = 1.28*0.195*(c_bus+c_sensors);SSE_int = 0.4;       % is this correct?
+% Bus + Sensors Integration Cost (FY22 $Millions)
+c_int = 1.28*0.195*(c_bus+c_sensors);SSE_int = 0.4;
 c_int_70 = c_int*(1 + 0.524*SSE_int); % 70% certainty
 
 % Communication and Electronics Costs (FY22 $Millions)
 m_comm = (7/87)*m_bus; % Table 14-18 SMAD relative to bus mass
-num_channels = 2; % assumption
+num_channels = 1; % Ka band
 c_comms = 1.28*1000*(339*(m_comm)+5127*(num_channels));
 c_elec = 1.28*1000*64.3*m_bus;
 
