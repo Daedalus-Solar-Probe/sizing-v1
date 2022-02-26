@@ -57,8 +57,8 @@ propulsion.lambda_spars = 0.1286; % [kg/m] spar material linear density
 % propulsion.power = 6900; % [W/engine] power per engine
 % propulsion.Isp = 4190; % [s] specific impulse per engine
 % propulsion.mass = 58.2; % [kg/engine] mass per engine
-% https://www.giesepp.com/wp-content/uploads/2019/11/A831-Mission-Cost-for-Gridded-Ion-Engines-using-Alternative-Propellants.pdf
-% Source above estimates that engine cost is $1.4M/kW adjusted to FY2022 $
+% % https://www.giesepp.com/wp-content/uploads/2019/11/A831-Mission-Cost-for-Gridded-Ion-Engines-using-Alternative-Propellants.pdf
+% % Source above estimates that engine cost is $1.4M/kW adjusted to FY2022 $
 % propulsion.cost = 1400000*propulsion.power/1000; % [USD/engine] cost per engine (FY2022 $)
 
 % % Chemical Engine (storable)
@@ -67,7 +67,10 @@ propulsion.lambda_spars = 0.1286; % [kg/m] spar material linear density
 % propulsion.thrust = 635; % [N/engine] thrust per engine
 % propulsion.Isp = 317; % [s] specific impulse (Juno Main Engine)
 % propulsion.mass = 4.5; % [kg/engine] mass per engine
-% propulsion.cost = 4000000; % [USD/engine] cost per engine   note: currently arbitrary cost
+% % https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=2555&context=smallsat
+% % Source above estimates $1.3M for equivalent engine plus $300k for valves, plumbing, and tankage. Adusted from FY1987 $ to FY2022 $ is approximately $4M per engine.
+% % If better source is found, will be updated.
+% propulsion.cost = 4000000; % [USD/engine] cost per engine (FY2022 $)
 
 %% Final Orbit Options
 
