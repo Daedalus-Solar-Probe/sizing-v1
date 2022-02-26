@@ -140,7 +140,4 @@ function [dV_total, tof_total] = trajectory(launch_vehicle,flybys,propulsion,fin
         tof_total = tof_total + tof; % [days]
     end
 
-    obs_time = observation_time(final_orbit);
-    fprintf("Observation Time = %f\n", obs_time);
-
 end % function
