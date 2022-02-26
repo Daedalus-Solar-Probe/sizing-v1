@@ -132,7 +132,7 @@ elseif propulsion.type == "Ion"
     P_prop = P_engine*N_engines; % [W]
 
     % propellant mass
-    m_prop = exp(dV/g0/Isp)*(m_payload + m_inert)-m_payload-m_inert; % [kg]
+    m_prop = exp(dV*1000/g0/Isp)*(m_payload + m_inert)-m_payload-m_inert; % [kg]
 
     % propulsion system mass
     m_propsys = m_prop + m_inert; % [kg]
@@ -165,7 +165,7 @@ elseif propulsion.type == "Chemical"
     m_engine = propulsion.mass; % [kg]
 
     % propellant mass
-    m_prop = exp(dV/g0/Isp)*(m_payload + m_engine)-m_payload-m_engine; % [kg]
+    m_prop = exp(dV*1000/g0/Isp)*(m_payload + m_engine)-m_payload-m_engine; % [kg]
 
     % propulsion system mass
     m_propsys = m_prop + m_engine; % [kg]
