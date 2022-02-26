@@ -150,5 +150,6 @@ fprintf("Final Inclination: \t\t%0.3f deg\n\n",orbit.inclination)
 
 fprintf("=============== Design Outputs ===============\n")
 fprintf("Time to Orbit: \t\t\t%0.3f days\n",tof)
+fprintf("Observation Time:\t\t%.3f days\n",observation_time(orbit))
 fprintf("Total Spacecraft Mass: \t%0.3f kg\n",mass.total)
 fprintf("Total Spacecraft Cost: \t%0.3f Million USD\n\n",cost/1e6)
