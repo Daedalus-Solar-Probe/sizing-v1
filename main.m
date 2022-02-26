@@ -73,7 +73,7 @@ propulsion.lambda_spars = 0.1286; % [kg/m] spar material linear density
 
 % POLARIS Final Orbit
 orbit.perihelion = 0.48*1.496e+8; % [km]
-orbit.inclination = 90; % [rad]
+orbit.inclination = 90; % [deg]
 
 %% Planetary Flyby Options
 
