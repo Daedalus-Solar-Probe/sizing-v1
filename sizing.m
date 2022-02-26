@@ -19,7 +19,7 @@ while abs(mass.total-mass0.total) > epsilon || abs(mass.payload-mass0.payload) >
     [P_prop, m_prop, c_prop] = propulsion_sizing(dV, propulsion, mass);
     
     % spacecraft bus sizing
-    [m_payload, c_bus] = spacecraft_bus_sizing(payload,P_prop);
+    [m_payload, c_bus] = spacecraft_bus_sizing(payload,P_prop,orbit);
     
     % total cost
     cost = c_prop + c_bus; % [USD]
