@@ -47,7 +47,7 @@ if propulsion.type == "Solar Sail"
     % final slide: gives $35M FY2011 cost for development+fabrication
     %             ->$43961098 FY2022 cost
     % fairly crude model: cost=43961098*(S_sail/7225 m^2)
-    cost = 43961098*(S_sail/7225); % [USD]
+%     cost = 43961098*(S_sail/7225); % [USD]
     
     % possibly better cost model? 
     % crude attempt to include development and deployment costs
@@ -60,40 +60,40 @@ if propulsion.type == "Solar Sail"
     % gives 0.0013~0.002mm thick PEN at $223/(150mm*150mm) sheet
     % ->0.15m*0.15m=0.0225m^2
     % so PEN cost would be $223/0.0225 m^2 = $9911.11/m^2
-    % cost_PEN=9911.11*S_sail; in USD
+    cost_PEN=9911.11*S_sail; %in USD
     %
     % approx. volume of aluminum needed would be volume=area*thickness
-    %  ->vol_al(m^3)=S_sail*(1e-7 m)
+    vol_al=S_sail*(1e-7);
     % https://markets.businessinsider.com/commodities/aluminum-price
     % gives $3.30/kg for aluminum as of 2/24
     % Al density=2.7 g/cm^3=2700 kg/m^3
     %  ->mass_al(kg)=(2700 kg/m^3)*vol_al
     %  ->cost_al(USD)=mass_al*($3.30/kg)
-    % mass_al = 2700*vol_al; %in kg
-    % cost_al = mass_al*3.30; %in usd
+    mass_al = 2700*vol_al; %in kg
+    cost_al = mass_al*3.30; %in usd
     %
     %
     % approx. volume of chromium needed would be volume=area*thickness
-    %  ->vol_Cr(m^3)=S_sail*(1.5e-8 m)
+    vol_Cr=S_sail*(1.5e-8);
     % https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/media/files/mis-202112-chrom.pdf
     % gives $5.65/lb=$12.46/kg as of Dec. 2021
     % Cr density=7.19 g/cm^3=7190 kg/m^3
     %  ->mass_Cr(kg)=(7190 kg/m^3)*vol_Cr
     %  ->cost_Cr(USD)=mass_Cr*($12.46/kg)
-    % mass_Cr = 7190*vol_Cr; %in kg
-    % cost_Cr = mass_al*12.46; %in usd
+    mass_Cr = 7190*vol_Cr; %in kg
+    cost_Cr = mass_Cr*12.46; %in usd
     %
-    % sail_cost=cost_PEN+cost_al+cost_Cr; (USD), sail only
+%     sail_cost=cost_PEN+cost_al+cost_Cr; %(USD), sail only
     % 
     % assuming boom and deployment will be approx 50% of total unit cost
     % (not sure if this is valid assumption but haven't been able to to 
     % quantize deployment and boom costs):
-    % sail_cost=2*cost_PEN+cost_al+cost_Cr;
+    sail_cost=(2*cost_PEN+cost_al+cost_Cr);
     %
     % from https://ntrs.nasa.gov/api/citations/20120015033/downloads/20120015033.pdf
     % DDT&E given at 10/25 of flight unit cost = 40% of total cost goes to
     % development:
-    % cost=1.4*sail_cost; %40% extra for DDT&E
+    cost=1.4*sail_cost; %40% extra for DDT&E
 
 % ion engine case
 elseif propulsion.type == "Ion"
