@@ -64,7 +64,7 @@ payload.cost = payload.cost .* payload.configuration;
 propulsion.name = "Solar Sail based on ACS3";
 propulsion.type = "Solar Sail";
 propulsion.beta = 0.1; % [-] lightness factor
-propulsion.rho_material = 0.0133; % [kg/m^2] sail material area density
+propulsion.rho_material = 0.005; % [kg/m^2] lightsail 2 sail material area density
 propulsion.lambda_spars = 0.1286; % [kg/m] spar material linear density
 
 % % NEXT Ion Engine (DOI 10.2514/6.2007-5199)
