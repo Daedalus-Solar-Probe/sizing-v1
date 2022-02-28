@@ -40,7 +40,8 @@ if propulsion.type == "Solar Sail"
     % power requred for sail
     P_prop = 0; % [W]
 
-    % Ethan's attempts at cost estimation:
+    % solar sail cost estimations
+    %
     % using analogous cost estimation suggested from cost est. lecture
     % https://ntrs.nasa.gov/api/citations/20120015033/downloads/20120015033.pdf
     % slide 13: area = 85m*85m = 7225m^2
@@ -48,52 +49,44 @@ if propulsion.type == "Solar Sail"
     %             ->$43961098 FY2022 cost
     % fairly crude model: cost=43961098*(S_sail/7225 m^2)
 %     cost = 43961098*(S_sail/7225); % [USD]
-    
-    % possibly better cost model? 
-    % crude attempt to include development and deployment costs
-    % https://pure.tudelft.nl/ws/portalfiles/portal/87293343/6.2021_1260.pdf
-    % gives that ASC3 membrane is 2 micrometer of PEN = 0.002 mm thick
-    % and covered with 100nm = 1e-7 m thick evaporated aluminum
-    % and has 15nm=1.5e-8m thick chromium layer
     %
-    % https://www.sigmaaldrich.com/US/en/product/aldrich/gf23662043
-    % gives 0.0013~0.002mm thick PEN at $223/(150mm*150mm) sheet
-    % ->0.15m*0.15m=0.0225m^2
-    % so PEN cost would be $223/0.0225 m^2 = $9911.11/m^2
-    cost_PEN=9911.11*S_sail; %in USD
+    % lightsail 2 material approximation
+    % Lightsail 2 thickness(Mylar) = 4.5 micrometer=0.177 mil~0.24 mil
+    % https://www.chemplex.com/xrf-sample-cup-thin-film-sample-support-windows.html
+    % gives $45/(0.0762m X 91.4m) = $50/6.9647 m^2
+    % =$7.18/m^2 of mylar
+    % mylar density=1389 kg/m^3
+    % rho_sail=1389; kg/m^3
+    % cost_sail=S_sail*7.18; %m^2*7.18USD/m^2 -> [USD]
+    %https://arc.aiaa.org/doi/pdf/10.2514/6.2017-0171#:~:text=The%20TRACTM%20Boom%20is%20a,cost%20and%20more%20compact%20packaging.
+    % lightsail 2's TRAC booms cross-sec area given by
+    % A=2*t*f=2*24.6mm*0.408mm=20.0736mm^2=2.00736e-5 m^2
+    % A_boom=2.00736e-5; %[m^2]
+    % vol=A_boom*length
+    % length of diag. boom given by sqrt(2)*S_sail
+    % vol_booms=2*(A_boom*sqrt(2)*S_sail)); [kg^3]
+    %https://www.sciencedirect.com/science/article/pii/S027311772030449X
+    % booms made from elgiloy alloy
+    %https://www.metalsuppliersonline.com/buy/exchange/post/viewhresponse.asp?BidId=43619
+    %gives cost at $157.77/lb=$347.338/kg
+    %https://www.elgiloy.com/assets/1/6/Strip_-_Elgiloy_Alloy1.pdf
+    %gives densiy of elgiloy=8600 kg/m^3
+    %mass_booms=vol_booms(m^3)*8600(kg/m^3); [kg]
     %
-    % approx. volume of aluminum needed would be volume=area*thickness
-    vol_al=S_sail*(1e-7);
-    % https://markets.businessinsider.com/commodities/aluminum-price
-    % gives $3.30/kg for aluminum as of 2/24
-    % Al density=2.7 g/cm^3=2700 kg/m^3
-    %  ->mass_al(kg)=(2700 kg/m^3)*vol_al
-    %  ->cost_al(USD)=mass_al*($3.30/kg)
-    mass_al = 2700*vol_al; %in kg
-    cost_al = mass_al*3.30; %in usd
-    %
-    %
-    % approx. volume of chromium needed would be volume=area*thickness
-    vol_Cr=S_sail*(1.5e-8);
-    % https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/media/files/mis-202112-chrom.pdf
-    % gives $5.65/lb=$12.46/kg as of Dec. 2021
-    % Cr density=7.19 g/cm^3=7190 kg/m^3
-    %  ->mass_Cr(kg)=(7190 kg/m^3)*vol_Cr
-    %  ->cost_Cr(USD)=mass_Cr*($12.46/kg)
-    mass_Cr = 7190*vol_Cr; %in kg
-    cost_Cr = mass_Cr*12.46; %in usd
-    %
-%     sail_cost=cost_PEN+cost_al+cost_Cr; %(USD), sail only
-    % 
-    % assuming boom and deployment will be approx 50% of total unit cost
-    % (not sure if this is valid assumption but haven't been able to to 
-    % quantize deployment and boom costs):
-    sail_cost=(2*cost_PEN+cost_al+cost_Cr);
+    %assume boom deployment system cost is extra 5% onto material cost
     %
     % from https://ntrs.nasa.gov/api/citations/20120015033/downloads/20120015033.pdf
     % DDT&E given at 10/25 of flight unit cost = 40% of total cost goes to
-    % development:
-    cost=1.4*sail_cost; %40% extra for DDT&E
+    % development
+
+    cost_sail=S_sail*7.18; %[USD]
+    A_boom=2.00736e-5; %[m^2]
+    vol_booms=2*(A_boom*sqrt(2)*S_sail); %[m^3]
+    mass_booms=vol_booms*8600; %[kg]
+    cost_booms=mass_booms*346.338; %[usd]
+    cost_sail_mat=cost_sail+cost_booms; %total material cost
+    cost=1.45*cost_sail_mat; % 40% extra for DDT&E, 5% for deployment material
+
 
 % ion engine case
 elseif propulsion.type == "Ion"
