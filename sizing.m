@@ -21,8 +21,8 @@ while abs(mass.total-mass0.total) > epsilon || abs(mass.payload-mass0.payload) >
     % spacecraft bus sizing
     [m_payload, c_bus] = spacecraft_bus_sizing(payload,P_prop,orbit);
     
-    % total cost
-    cost = c_prop + c_bus; % [USD]
+    % total cost + 15% mission operational cost
+    cost = 1.15*(c_prop + c_bus); % [USD]
     
     % set old mass
     mass0 = mass;
