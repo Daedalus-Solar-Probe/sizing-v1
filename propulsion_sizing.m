@@ -86,6 +86,7 @@ if propulsion.type == "Solar Sail"
     cost_booms=mass_booms*346.338; %[usd]
     cost_sail_mat=cost_sail+cost_booms; %total material cost
     cost=1.45*cost_sail_mat; % 40% extra for DDT&E, 5% for deployment material
+    cost=1.3*cost; %30% margin added to cost
 
 
 % ion engine case
