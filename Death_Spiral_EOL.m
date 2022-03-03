@@ -1,3 +1,10 @@
+%% Death Spiral
+% https://ipnpr.jpl.nasa.gov/progress_report/42-147/147C.pdf
+% Source suggests conjunction prevents communication when angle between
+% Earth and Mars (in our case, our spacecraft orbiting sun) when distance
+% is less than 2 solar radii (or 0.5 degrees). This conjunction will be 
+% significant for a potential death spiral regarding the transmission of
+% data.
 
 mu = 132712440018;  % [km^3/s^2] solar gravitational parameter
 
@@ -5,8 +12,7 @@ mu = 132712440018;  % [km^3/s^2] solar gravitational parameter
 initial_radius = 0.48*1.496e+8; % [km]
 desired_radius = 0.1*1.496e+8; % [km]
 
-
-    beta = 0.05; % [-] 
+    beta = 0.1; % [-] 
 
     % ?????
     alpha = atan(1/sqrt(2));
