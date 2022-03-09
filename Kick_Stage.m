@@ -1,5 +1,5 @@
 %% Kick Stage
-function [dV,Cost,C3_old,C3_kick,C3_lv,C3_new] = Kick_Stage (mass,launch_vehicle,type)
+function [dV,Cost,C3_old,C3_kick,C3_lv,C3_new,C3_wrong] = Kick_Stage (mass,launch_vehicle,type)
 
 g0 = 9.81;
 sc_mass = mass.total;
@@ -47,7 +47,14 @@ C3_old = interp1(launch_vehicle.mass,launch_vehicle.C3,sc_mass,'linear','extrap'
 % After kick stage
 mass_new = sc_mass + mass_i; % kg
 C3_lv = interp1(launch_vehicle.mass,launch_vehicle.C3,mass_new,'linear','extrap'); % [km^2/s^2]
-C3_new = C3_lv + C3_kick; % km^2/s^2
+if C3_lv <= 0
+    error("Launch vehicle C3 is less than 0.")
+else
+    dV_lv = sqrt(C3_lv); % km/s
+    dV_new = dV_lv + dV; % km/s
+    C3_new = dV_new^2; % km^2/s^2
+    C3_wrong = C3_lv + C3_kick; % km^2/s^2 Note: This is the old C3 value calculation that I believe is incorrect
+end
 
 
 
