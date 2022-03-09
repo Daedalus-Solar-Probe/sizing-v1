@@ -31,6 +31,13 @@ elseif type == "Star 48BV"
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
     C3_kick = dV^2; % km^2/s^2
     Cost = 2; % $
+elseif type == "Castor-30B"
+    Isp = 300.6; % s
+    mass_i = 13971; % kg
+    mass_f = mass_i - 12885; % kg
+    dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+    C3_kick = dV^2; % km^2/s^2
+    Cost = 2.5; % $
 elseif type == "Castor-30XL"
     Isp = 294.4; % s
     mass_i = 26407; % kg
