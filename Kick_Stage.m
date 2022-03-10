@@ -47,10 +47,28 @@ elseif type == "Castor-30XL"
     Cost = 3; % $
 elseif type == "Leros 4"
     Isp = 321; % s
-    mass_i = 1296.8; % kg
+    mass_i = 1331.8; % kg
     mass_f = mass_i - 1231.3; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
     Cost = 1.1; % $
+elseif type == "Leros 2b"
+    Isp = 320; % s
+    mass_i = 939.7; % kg
+    mass_f = mass_i - 862.7; % kg
+    dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+    Cost = 1.1; % $
+elseif type == "TR-312-100YN"
+    Isp = 330; % s
+    mass_i = 492.5; % kg
+    mass_f = mass_i - 435.4; % kg
+    dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+    Cost = 1; % $
+elseif type == "Ariane 400N"
+    Isp = 321; % s
+    mass_i = 594.9; % kg
+    mass_f = mass_i - 534.6; % kg
+    dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+    Cost = 1; % $
 end
 
 %% Check LV C3
