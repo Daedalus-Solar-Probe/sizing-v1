@@ -45,6 +45,12 @@ elseif type == "Castor-30XL"
     mass_f = mass_i - 24925; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
     Cost = 3; % $
+elseif type == "Leros 4"
+    Isp = 321; % s
+    mass_i = 1296.8; % kg
+    mass_f = mass_i - 1231.3; % kg
+    dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+    Cost = 1.1; % $
 end
 
 %% Check LV C3
