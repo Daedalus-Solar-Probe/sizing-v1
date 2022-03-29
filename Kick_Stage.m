@@ -14,43 +14,43 @@ elseif type == "Star 27H"
     mass_i = 367.8; % kg
     mass_f = mass_i - 338.8; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
-    Cost = 2.49e+6; % $
+    Cost = 0.56e+6; % $
 elseif type == "Star 30E"
     Isp = 290.4; % s
     mass_i = 673.9; % kg
     mass_f = mass_i - 631.4; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
-    Cost = 3.56e+6; % $
+    Cost = 1.02e+6; % $
 elseif type == "Star 37XFP"
     Isp = 290.0; % s
     mass_i = 955.3; % kg
     mass_f = mass_i - 883.6; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
-    Cost = 4.81e+6; % $
+    Cost = 1.44e+6; % $
 elseif type == "Star 48BV"
     Isp = 292.1; % s
     mass_i = 2164.5; % kg
     mass_f = mass_i - 2010; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
-    Cost = 8.17e+6; % $
+    Cost = 3.27e+6; % $
 elseif type == "Star 63F"
     Isp = 297.1; % s
     mass_i = 4591.7; % kg
     mass_f = mass_i - 4264.5; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
-    Cost = 14.3e+6; % $
+    Cost = 6.94e+6; % $
 elseif type == "Castor-30B"
     Isp = 300.6; % s
     mass_i = 13971; % kg
     mass_f = mass_i - 12885; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
-    Cost = 25.55e+6; % $
+    Cost = 21.11e+6; % $
 elseif type == "Castor-30XL"
     Isp = 294.4; % s
     mass_i = 26407; % kg
     mass_f = mass_i - 24925; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
-    Cost = 38.94e+6; % $
+    Cost = 39.90e+6; % $
 elseif type == "Leros 4"
     Isp = 321; % s
     mass_i = 1351.8; % kg
