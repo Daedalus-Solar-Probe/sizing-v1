@@ -23,7 +23,7 @@ Tot_dV = sqrt(C3); % [km / s] Excess dV of Launch Vehicle + Kick Stage
 %% Version 1
 % Inclination change possible with separate inclination and perihelion drop
 % burns.
-% Theta = 2*asin(Rem_dV / 2 / V_i)*180/pi; % [degrees]
+% Theta_v1 = 2*asin(Rem_dV / 2 / V_i)*180/pi; % [degrees]
 
 %% Version 2 
 % Inclination change combined with perihilion drop.
