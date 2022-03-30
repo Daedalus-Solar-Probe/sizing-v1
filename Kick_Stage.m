@@ -51,16 +51,34 @@ elseif type == "Castor-30XL"
     mass_f = mass_i - 24925; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
     Cost = 39.90e+6; % $
-elseif type == "Leros 4"
-    Isp = 321; % s
-    mass_i = 1351.8; % kg
-    mass_f = mass_i - 1231.3; % kg
-    dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
-    Cost = 1.1; % $
+% elseif type == "Leros 1b"
+%     Isp = 320; % s
+%     mass_i = 959.7; % kg
+%     mass_f = mass_i - 862.7; % kg
+%     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+%     Cost = 1.1; % $
+% elseif type == "Leros 1c"
+%     Isp = 320; % s
+%     mass_i = 959.7; % kg
+%     mass_f = mass_i - 862.7; % kg
+%     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+%     Cost = 1.1; % $
 elseif type == "Leros 2b"
     Isp = 320; % s
     mass_i = 959.7; % kg
     mass_f = mass_i - 862.7; % kg
+    dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+    Cost = 1.1; % $
+% elseif type == "Leros 2c"
+%     Isp = 320; % s
+%     mass_i = 959.7; % kg
+%     mass_f = mass_i - 862.7; % kg
+%     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+%     Cost = 1.1; % $
+elseif type == "Leros 4"
+    Isp = 321; % s
+    mass_i = 1351.8; % kg
+    mass_f = mass_i - 1231.3; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
     Cost = 1.1; % $
 elseif type == "TR-312-100YN"
@@ -69,6 +87,30 @@ elseif type == "TR-312-100YN"
     mass_f = mass_i - 435.4; % kg
     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
     Cost = 1; % $
+% elseif type == "TR-308"
+%     Isp = 330; % s
+%     mass_i = 507.5; % kg
+%     mass_f = mass_i - 435.4; % kg
+%     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+%     Cost = 1; % $
+% elseif type == "TR-312-100MN"
+%     Isp = 330; % s
+%     mass_i = 507.5; % kg
+%     mass_f = mass_i - 435.4; % kg
+%     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+%     Cost = 1; % $
+% elseif type == "Ariane 10N"
+%     Isp = 321; % s
+%     mass_i = 609.9; % kg
+%     mass_f = mass_i - 534.6; % kg
+%     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+%     Cost = 1; % $
+% elseif type == "Ariane 200N"
+%     Isp = 321; % s
+%     mass_i = 609.9; % kg
+%     mass_f = mass_i - 534.6; % kg
+%     dV = Isp*g0*log((sc_mass+mass_i)/(sc_mass+mass_f))/1000; % km/s
+%     Cost = 1; % $
 elseif type == "Ariane 400N"
     Isp = 321; % s
     mass_i = 609.9; % kg
