@@ -1,6 +1,9 @@
 %% TT+C Antenna Sizing
 %  Author: Sam Dzigiel
 
+% Input: Downlink Time (hrs)
+% Output: Ka Band Antenna Diameter (m)
+
 %% Function
 function[ka_diameter] = KaAntennaDiameter(downlink_time)
     %% Ka 
