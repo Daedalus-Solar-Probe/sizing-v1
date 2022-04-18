@@ -10,6 +10,7 @@ function[ka_diameter] = KaAntennaDiameter(downlink_time)
 
     % Basic Parameters:
     Mod_index = 1.2; % Modulation Index
+    compression = 4; % Compression Ratio
     f_c = 26; %RF Frequency, GHz
     transmit_power = 50; % Transmit Power (corresponds to 100W)
     transmit_loss = -2; % Loss, db
@@ -22,7 +23,7 @@ function[ka_diameter] = KaAntennaDiameter(downlink_time)
     Data2P =10*log10((sin(Mod_index))^2); % Data-to-Total Power
     path_loss =10*log10((300000/(4*pi*d*f_c*10^9))^2); % Loss
     science_data_rate = 125.576; % Scientific Data Rate, kbps
-    bit_rate = 24/downlink_time*science_data_rate; % Transmit data rate, kbps
+    bit_rate = 24/downlink_time*science_data_rate/compression; % Transmit data rate, kbps
 
     % Find diamater from downlink time and desired margin:
     Desired_margin = 3; % Desired Link Margin, db
